@@ -1,0 +1,41 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Batik Classifier</title>
+  </head>
+  <body>
+    <h1>Batik Image Classifier</h1>
+
+    <!-- Upload dari file -->
+    <form id="uploadForm">
+      <label for="fileInput">Upload Gambar:</label>
+      <input type="file" id="fileInput" name="image" accept="image/*" required />
+      <button type="submit">Upload</button>
+    </form>
+
+    <hr>
+
+    <!-- Hasil prediksi -->
+    <h3>Hasil:</h3>
+    <pre id="result">Belum ada hasil.</pre>
+
+    <script>
+      document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const fileInput = document.getElementById("fileInput");
+        const formData = new FormData();
+        formData.append("image", fileInput.files[0]);
+
+        const response = await fetch("http://localhost:5000/api/upload", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+        document.getElementById("result").textContent = JSON.stringify(data, null, 2);
+      });
+    </script>
+  </body>
+  </html>
