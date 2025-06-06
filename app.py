@@ -22,14 +22,15 @@ label_map = {}
 def initialize_model():
     global model, label_map
     try:
-        model = load_model('ModelActivationElu.h5')
+        model = load_model('augmentTest8_batik_cnn_pararel_elu.h5')
         print("Model loaded successfully")
     except Exception as e:
         print(f"Failed to load model: {e}")
         model = None
 
     try:
-        with open("label_mapSequenceElu.json", "r") as f:
+        with open("label_mapping_pararelEluAugment8.json", "r") as f:
+     
             label_data = json.load(f)
         label_map = {int(v): k for k, v in label_data.items()}
         print("Label map loaded successfully")
@@ -40,7 +41,9 @@ def initialize_model():
 # Call the initialization function
 initialize_model()
 
-def preprocess_image(image, target_size=(150, 150)):
+# Function to preprocess the image sequence Elu
+# def preprocess_image(image, target_size=(150, 150)):
+def preprocess_image(image, target_size=(224, 224)):
     if image.mode != "RGB":
         image = image.convert("RGB")
     image = image.resize(target_size)
