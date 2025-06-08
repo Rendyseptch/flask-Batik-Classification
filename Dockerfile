@@ -1,22 +1,22 @@
-# Base image Python
-FROM python:3.12-slim
+# Gunakan Python 3.10 untuk kompatibilitas dengan TensorFlow 2.19.0
+FROM python:3.10-slim
 
-# Set environment to prevent Python from writing .pyc files
+# Disable bytecode dan enable output langsung
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Set working directory
+# Buat folder kerja
 WORKDIR /app
 
-# Install dependencies
+# Salin dan install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app files
+# Salin semua file aplikasi
 COPY . .
 
-# Expose Flask default port
+# Expose port Flask
 EXPOSE 5000
 
-# Run the Flask app
+# Jalankan Flask
 CMD ["python", "app.py"]
